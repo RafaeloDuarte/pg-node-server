@@ -1,9 +1,12 @@
+const { Pool } = require('pg')
+const pool = new Pool(require('../database/config'))
+const queries = require('../database/queries')
+const clusterErrorHandler = e => {return {err: e}}
 
-
-class Cluster {
-    index(req, res, next){
-        return res.json({clusters:''})
-    }
+const clusters = (req, resp, next) => {
+    pool.query(queries.clusters)
+        .then(res => resp.json(res.rows))
+        .catch(e => resp.json(clusterErrorHandler(e)))
 }
 
-module.exports = Cluster
+module.exports = clusters

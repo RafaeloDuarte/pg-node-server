@@ -1,7 +1,6 @@
 const router = require('express').Router()
-const ClusterController = require('../controllers/ClusterController')
-const clusterController = new ClusterController()
+const clusters = require('../controllers/ClusterController')
 
-router.get('/', clusterController.index)
+router.get('/', clusters)
 
 module.exports = router
